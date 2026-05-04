@@ -1,4 +1,4 @@
-package Interaface;
+package Interface;
 
 public class MenuPrincipal {
 }
