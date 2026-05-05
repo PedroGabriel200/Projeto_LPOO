@@ -12,7 +12,15 @@ public class Cliente extends Pessoa {
     public String getCnh(){
         return cnh;
     }
-    public void setCnh(String Cnh){
+    public void setCnh(String cnh){
         this.cnh = cnh;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + getId() +
+                " | Nome: " + getNome() +
+                " | CPF: " + getCpf() +
+                " | CNH: " + cnh;
     }
 }
