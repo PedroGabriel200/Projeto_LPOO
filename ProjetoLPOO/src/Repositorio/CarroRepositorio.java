@@ -29,5 +29,15 @@ public class CarroRepositorio {
         }
         return null;
     }
-}
 
+    // Remover carro
+    public boolean removerCarro(String placa) {
+        Carro carro = buscarPorPlaca(placa);
+
+        if (carro != null) {
+            carros.remove(carro);
+            return true;
+        }
+        return false;
+    }
+}
