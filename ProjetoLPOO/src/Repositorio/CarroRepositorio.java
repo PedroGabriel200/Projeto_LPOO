@@ -39,5 +39,18 @@ public class CarroRepositorio {
             return true;
         }
         return false;
+
+    }
+
+    // Atualizar carro
+    public boolean atualizarCarro(String placa, Carro novoCarro) {
+        for (int i = 0; i < carros.size(); i++) {
+
+            if (carros.get(i).getPlaca().equalsIgnoreCase(placa)) {
+                carros.set(i, novoCarro);
+                return true;
+            }
+        }
+        return false;
     }
 }
