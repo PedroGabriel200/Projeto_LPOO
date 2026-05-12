@@ -1,5 +1,7 @@
 import Interface.ClienteMenu;
 import Repositorio.LocacaoRepositorio;
+import Repositorio.CarroRepositorio;
+
 
 public class Main {
 
@@ -9,5 +11,6 @@ public class Main {
         clienteMenu.menu();
 
         LocacaoRepositorio repo = new LocacaoRepositorio();
+        CarroRepositorio carro = new CarroRepositorio();
     }
 }
