@@ -5,52 +5,77 @@ import Modelo.Carro;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CarroRepositorio {
-    private final List<Carro> carros = new ArrayList<>();
 
-    // Adicionar carro
-    public void adicionarcarro(Carro carro) {
-        carros.add(carro);
+    private static CarroRepositorio instancia;
+    private final List<Carro> carrosRepositor = new ArrayList<>();
+
+    //Construtor
+    private CarroRepositorio() {
     }
 
-    // Listar todos os carros
-    public List<Carro> listarCarros() {
-        return carros;
+    public static CarroRepositorio getInstancia() {
+
+        if (instancia == null) {
+            instancia = new CarroRepositorio();
+        }
+        return instancia;
     }
 
-    // Buscar carro pela placa
+    // Adicionar
+    public boolean adicionar_Carros(Carro carro) {
+
+        if (buscarPorPlaca(carro.getPlaca()) != null) {
+            return false;
+        }
+
+        carrosRepositor.add(carro);
+        return true;
+    }
+
+    // Listar
+    public List<Carro> listar_Carros() {
+        return new ArrayList<>(carrosRepositor);
+    }
+
+    // Buscar
     public Carro buscarPorPlaca(String placa) {
-        for (Carro carro : carros) {
 
-            if (carro.getPlaca().equals(placa)) {
+        for (Carro carro : carrosRepositor) {
+
+            if (carro.getPlaca().equalsIgnoreCase(placa)) {
                 return carro;
             }
         }
+
         return null;
     }
 
-    // Remover carro
-    public boolean removerCarro(String placa) {
+    // Remover
+    public boolean remover_Carros(String placa) {
+
         Carro carro = buscarPorPlaca(placa);
 
         if (carro != null) {
-            carros.remove(carro);
+            carrosRepositor.remove(carro);
             return true;
         }
-        return false;
 
+        return false;
     }
 
-    // Atualizar carro
-    public boolean atualizarCarro(String placa, Carro novoCarro) {
-        for (int i = 0; i < carros.size(); i++) {
+    // Atualizar
+    public boolean atualizar_Carros(String placa, Carro novoCarro) {
 
-            if (carros.get(i).getPlaca().equalsIgnoreCase(placa)) {
-                carros.set(i, novoCarro);
+        for (int i = 0; i < carrosRepositor.size(); i++) {
+
+            if (carrosRepositor.get(i).getPlaca().equalsIgnoreCase(placa)) {
+
+                carrosRepositor.set(i, novoCarro);
                 return true;
             }
         }
+
         return false;
     }
 }

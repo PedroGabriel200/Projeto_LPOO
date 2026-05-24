@@ -15,11 +15,11 @@ public class ClienteServicos {
     }
 
     public java.util.ArrayList<Cliente> listar() {
-        return repositorio.listar();
+        return repositorio.listar_Clientes();
     }
 
     public boolean excluir(int id) {
-        for (Cliente cliente : repositorio.listar()) {
+        for (Cliente cliente : repositorio.listar_Clientes()) {
             if (cliente.getId() == id) {
                 repositorio.remover(cliente);
                 return true;

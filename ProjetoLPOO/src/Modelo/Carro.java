@@ -35,35 +35,19 @@ public class Carro {
     }
 
     public void setPlaca(String placa) {
-        if (placa == null || placa.isEmpty()) {
-            throw new IllegalArgumentException("Placa não pode ser vazia");
-        }
         this.placa = placa;
     }
 
-    public boolean isDisponivel() {
+    public boolean isDisponivel()
+    {
         return disponivel;
     }
 
-    public void setDisponivel(boolean disponivel) {
+    public void setDisponivel(boolean disponivel)
+    {
         this.disponivel = disponivel;
     }
 
-    public void alugar(){
-        if (!disponivel){
-            System.out.println("Carro já está alugado.");
-            return;
-
-        }
-        this.disponivel = false;
-    }
-    public void devolver(){
-        if(disponivel){
-            System.out.println("Carro já está disponível.");
-            return;
-        }
-        this.disponivel = true;
-    }
     @Override
     public String toString() {
         return "Carro{" +

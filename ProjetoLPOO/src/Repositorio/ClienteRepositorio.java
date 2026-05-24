@@ -10,7 +10,7 @@ public class ClienteRepositorio {
         clientes.add(cliente);
     }
 
-    public ArrayList<Cliente> listar(){
+    public ArrayList<Cliente> listar_Clientes(){
         return clientes;
     }
 
