@@ -8,13 +8,14 @@ import java.util.List;
 public class CarroRepositorio {
 
     private static CarroRepositorio instancia;
-    private final List<Carro> carrosRepositor = new ArrayList<>();
+    private final List<Carro> CarrosRepositorio = new ArrayList<>();
+    private int proximoId = 1;
 
     //Construtor
     private CarroRepositorio() {
     }
 
-    public static CarroRepositorio getInstancia() {
+    public static CarroRepositorio getInstanciaCarro() {
 
         if (instancia == null) {
             instancia = new CarroRepositorio();
@@ -25,25 +26,43 @@ public class CarroRepositorio {
     // Adicionar
     public boolean adicionar_Carros(Carro carro) {
 
-        if (buscarPorPlaca(carro.getPlaca()) != null) {
+        if (carro == null || buscarPorPlaca(carro.getPlaca()) != null) {
             return false;
         }
 
-        carrosRepositor.add(carro);
+        carro.setId(proximoId);
+        proximoId = proximoId + 1;
+        CarrosRepositorio.add(carro);
         return true;
     }
 
     // Listar
     public List<Carro> listar_Carros() {
-        return new ArrayList<>(carrosRepositor);
+        return new ArrayList<>(CarrosRepositorio);
     }
 
     // Buscar
+    public Carro buscarPorId(int id) {
+
+        for (Carro carro : CarrosRepositorio) {
+
+            if (carro.getId() == id) {
+                return carro;
+            }
+        }
+
+        return null;
+    }
+
     public Carro buscarPorPlaca(String placa) {
 
-        for (Carro carro : carrosRepositor) {
+        if (placa == null) {
+            return null;
+        }
 
-            if (carro.getPlaca().equalsIgnoreCase(placa)) {
+        for (Carro carro : CarrosRepositorio) {
+
+            if (carro.getPlaca() != null && carro.getPlaca().equalsIgnoreCase(placa)) {
                 return carro;
             }
         }
@@ -52,12 +71,12 @@ public class CarroRepositorio {
     }
 
     // Remover
-    public boolean remover_Carros(String placa) {
+    public boolean remover_Carros(int id) {
 
-        Carro carro = buscarPorPlaca(placa);
+        Carro carro = buscarPorId(id);
 
         if (carro != null) {
-            carrosRepositor.remove(carro);
+            CarrosRepositorio.remove(carro);
             return true;
         }
 
@@ -65,13 +84,26 @@ public class CarroRepositorio {
     }
 
     // Atualizar
-    public boolean atualizar_Carros(String placa, Carro novoCarro) {
+    public boolean atualizar_Carros(int id, Carro novoCarro) {
 
-        for (int i = 0; i < carrosRepositor.size(); i++) {
+        if (novoCarro == null) {
+            return false;
+        }
 
-            if (carrosRepositor.get(i).getPlaca().equalsIgnoreCase(placa)) {
+        for (int i = 0; i < CarrosRepositorio.size(); i++) {
 
-                carrosRepositor.set(i, novoCarro);
+            Carro carroAtual = CarrosRepositorio.get(i);
+
+            if (carroAtual.getId() == id) {
+
+                Carro carroComMesmaPlaca = buscarPorPlaca(novoCarro.getPlaca());
+
+                if (carroComMesmaPlaca != null && carroComMesmaPlaca.getId() != id) {
+                    return false;
+                }
+
+                novoCarro.setId(id);
+                CarrosRepositorio.set(i, novoCarro);
                 return true;
             }
         }

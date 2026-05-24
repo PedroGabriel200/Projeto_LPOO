@@ -7,8 +7,7 @@ public class Carro {
     private String placa;
     private boolean disponivel;
 
-    public Carro(int id, String modelo,String placa, boolean disponivel){
-        this.id = id;
+    public Carro(String modelo, String placa, boolean disponivel){
         this.modelo = modelo;
         this.placa = placa;
         this.disponivel = disponivel;
@@ -50,12 +49,10 @@ public class Carro {
 
     @Override
     public String toString() {
-        return "Carro{" +
-                "id=" + id +
-                ", modelo='" + modelo + '\'' +
-                ", placa='" + placa + '\'' +
-                ", disponivel=" + disponivel +
-                '}';
+        return
+                "ID: " + id +
+                " | Modelo: " + modelo  +
+                " | Placa: " + placa +
+                " | Disponível: " + (disponivel ? "Sim" : "Não");
     }
 }
-

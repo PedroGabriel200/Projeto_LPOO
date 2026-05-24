@@ -12,7 +12,7 @@ public class CarroMenu {
             new Scanner(System.in);
 
     private static final CarroRepositorio repositorio =
-            CarroRepositorio.getInstancia();
+            CarroRepositorio.getInstanciaCarro();
 
     public static void exibir() {
 
@@ -20,17 +20,18 @@ public class CarroMenu {
 
         do {
 
-            System.out.println("\n===== MENU CARROS =====");
-            System.out.println("1 - Adicionar");
-            System.out.println("2 - Listar");
-            System.out.println("3 - Buscar");
-            System.out.println("4 - Remover");
-            System.out.println("5 - Atualizar");
+            System.out.println("\n==============================");
+            System.out.println("        MENU CARROS");
+            System.out.println("==============================");
+            System.out.println("1 - Adicionar Carro");
+            System.out.println("2 - Listar Carros");
+            System.out.println("3 - Buscar Carro por ID");
+            System.out.println("4 - Atualizar Carro");
+            System.out.println("5 - Remover Carro");
             System.out.println("0 - Voltar");
+            System.out.println("==============================");
 
-            System.out.print("Escolha: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = lerInteiro("Escolha: ");
 
             switch (opcao) {
 
@@ -47,11 +48,11 @@ public class CarroMenu {
                     break;
 
                 case 4:
-                    remover();
+                    atualizar();
                     break;
 
                 case 5:
-                    atualizar();
+                    remover();
                     break;
 
                 case 0:
@@ -68,29 +69,24 @@ public class CarroMenu {
     // ADICIONAR
     private static void adicionar() {
 
-        System.out.print("ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
         System.out.print("Modelo: ");
         String modelo = scanner.nextLine();
 
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
 
-        System.out.print("Disponível (true/false): ");
-        boolean disponivel = scanner.nextBoolean();
+        boolean disponivel = lerBoolean("Disponível (true/false): ");
 
         Carro carro =
-                new Carro(id, modelo, placa, disponivel);
+                new Carro(modelo, placa, disponivel);
 
         boolean adicionou =
                 repositorio.adicionar_Carros(carro);
 
         if (adicionou) {
-            System.out.println("Carro adicionado.");
+            System.out.println("Carro adicionado com ID " + carro.getId() + ".");
         } else {
-            System.out.println("Placa já cadastrada.");
+            System.out.println("Não foi possível adicionar. Placa já cadastrada.");
         }
     }
 
@@ -107,6 +103,7 @@ public class CarroMenu {
         } else {
 
             for (Carro carro : carros) {
+                System.out.println();
                 System.out.println(carro);
             }
         }
@@ -115,13 +112,13 @@ public class CarroMenu {
     // BUSCAR
     private static void buscar() {
 
-        System.out.print("Digite a placa: ");
-        String placa = scanner.nextLine();
+        int id = lerInteiro("Digite o ID do carro: ");
 
         Carro carro =
-                repositorio.buscarPorPlaca(placa);
+                repositorio.buscarPorId(id);
 
         if (carro != null) {
+            System.out.println();
             System.out.println(carro);
         } else {
             System.out.println("Carro não encontrado.");
@@ -131,11 +128,10 @@ public class CarroMenu {
     // REMOVER
     private static void remover() {
 
-        System.out.print("Digite a placa: ");
-        String placa = scanner.nextLine();
+        int id = lerInteiro("Digite o ID do carro: ");
 
         boolean removeu =
-                repositorio.remover_Carros(placa);
+                repositorio.remover_Carros(id);
 
         if (removeu) {
             System.out.println("Carro removido.");
@@ -147,11 +143,10 @@ public class CarroMenu {
     // ATUALIZAR
     private static void atualizar() {
 
-        System.out.print("Digite a placa do carro: ");
-        String placa = scanner.nextLine();
+        int id = lerInteiro("Digite o ID do carro: ");
 
         Carro carroExistente =
-                repositorio.buscarPorPlaca(placa);
+                repositorio.buscarPorId(id);
 
         if (carroExistente == null) {
 
@@ -159,27 +154,61 @@ public class CarroMenu {
             return;
         }
 
-        System.out.print("Novo ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
         System.out.print("Novo modelo: ");
         String modelo = scanner.nextLine();
 
         System.out.print("Nova placa: ");
         String novaPlaca = scanner.nextLine();
 
-        System.out.print("Disponível (true/false): ");
-        boolean disponivel = scanner.nextBoolean();
+        boolean disponivel = lerBoolean("Disponível (true/false): ");
 
         Carro novoCarro =
-                new Carro(id, modelo, novaPlaca, disponivel);
+                new Carro(modelo, novaPlaca, disponivel);
 
-        repositorio.atualizar_Carros(
-                placa,
-                novoCarro
-        );
+        boolean atualizou =
+                repositorio.atualizar_Carros(
+                        id,
+                        novoCarro
+                );
 
-        System.out.println("Carro atualizado.");
+        if (atualizou) {
+            System.out.println("Carro atualizado.");
+        } else {
+            System.out.println("Não foi possível atualizar. Verifique se a placa já está cadastrada.");
+        }
+    }
+
+    private static int lerInteiro(String mensagem) {
+
+        while (true) {
+
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+
+            try {
+                return Integer.parseInt(entrada);
+            } catch (NumberFormatException erro) {
+                System.out.println("Digite um número válido.");
+            }
+        }
+    }
+
+    private static boolean lerBoolean(String mensagem) {
+
+        while (true) {
+
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+
+            if (entrada.equalsIgnoreCase("true")) {
+                return true;
+            }
+
+            if (entrada.equalsIgnoreCase("false")) {
+                return false;
+            }
+
+            System.out.println("Digite true ou false.");
+        }
     }
 }

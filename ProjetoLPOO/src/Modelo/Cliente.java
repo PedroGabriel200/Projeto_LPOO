@@ -4,8 +4,8 @@ public class Cliente extends Pessoa {
 
     private String cnh;
 
-    public Cliente(int id, String cpf, String nome, String cnh){
-        super(id, nome, cpf);
+    public Cliente(String nome, String cpf, String cnh){
+        super(0, nome, cpf);
         this.cnh = cnh;
     }
 
@@ -18,7 +18,8 @@ public class Cliente extends Pessoa {
 
     @Override
     public String toString() {
-        return "ID: " + getId() +
+        return
+                "ID: " + getId() +
                 " | Nome: " + getNome() +
                 " | CPF: " + getCpf() +
                 " | CNH: " + cnh;
