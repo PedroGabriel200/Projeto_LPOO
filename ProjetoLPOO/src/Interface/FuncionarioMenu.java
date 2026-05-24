@@ -105,7 +105,7 @@ public class FuncionarioMenu {
     }
 
     // LISTAR
-    private static void listar() {
+    public static void listar() {
 
         List<Funcionario> funcionarios =
                 repositorio.listar_Funcionarios();

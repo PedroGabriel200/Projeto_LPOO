@@ -91,7 +91,7 @@ public class CarroMenu {
     }
 
     // LISTAR
-    private static void listar() {
+    public static void listar() {
 
         List<Carro> carros =
                 repositorio.listar_Carros();

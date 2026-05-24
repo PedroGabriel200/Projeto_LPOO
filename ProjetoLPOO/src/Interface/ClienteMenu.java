@@ -96,7 +96,7 @@ public class ClienteMenu {
     }
 
     // LISTAR
-    private static void listar() {
+    public static void listar() {
 
         List<Cliente> clientes =
                 repositorio.listar_Clientes();
