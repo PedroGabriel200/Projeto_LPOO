@@ -23,5 +23,14 @@ public class Funcionario extends Pessoa {
     public double getSalario(){
         return salario;
     }
+    @Override
+    public String toString() {
+        return
+                "ID: " + getId() +
+                        " | Nome: " + getNome() +
+                        " | CPF: " + getCpf() +
+                        " | Matricula: " + getMatricula() +
+                        " | Salário: " + getSalario();
+    }
 
 }
