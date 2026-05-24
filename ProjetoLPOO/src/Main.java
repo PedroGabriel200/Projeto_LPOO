@@ -1,5 +1,3 @@
-import Interface.CarroMenu;
-import Interface.ClienteMenu;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +11,8 @@ public class Main {
         do {
 
             System.out.println("\n===== MENU PRINCIPAL =====");
+            System.out.println("4 - Menu locação");
+            System.out.println("3 - Menu Funcionário");
             System.out.println("2 - Menu Clientes");
             System.out.println("1 - Menu Carros");
             System.out.println("0 - Sair");
@@ -21,9 +21,14 @@ public class Main {
             opcao = scanner.nextInt();
 
             switch (opcao) {
+                case 4:
+                    Interface.LocacaoMenu.exibir();
+                    break;
+                case 3:
+                    Interface.FuncionarioMenu.exibir();
+                    break;
                 case 2:
-                    ClienteMenu clienteMenu = new ClienteMenu();
-                    clienteMenu.menu();
+                    Interface.ClienteMenu.exibir();
                     break;
                 case 1:
                     Interface.CarroMenu.exibir();
