@@ -167,4 +167,27 @@ public class FuncionarioRepositorio {
 
         return remover_Funcionario(funcionario.getId());
     }
+    // Verifica se existe pelo menos um funcionário cadastrado
+    public boolean existeFuncionario() {
+        return !funcionariosRepositorio.isEmpty();
+    }
+
+    // Login por matrícula e senha
+    public Funcionario autenticar(String matricula, String senha) {
+
+        if (matricula == null || senha == null) {
+            return null;
+        }
+
+        for (Funcionario funcionario : funcionariosRepositorio) {
+
+            if (funcionario.getMatricula().equalsIgnoreCase(matricula)
+                    && funcionario.getSenha().equals(senha)) {
+
+                return funcionario;
+            }
+        }
+
+        return null;
+    }
 }
