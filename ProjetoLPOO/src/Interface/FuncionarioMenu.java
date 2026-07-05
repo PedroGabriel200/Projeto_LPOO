@@ -82,6 +82,9 @@ public class FuncionarioMenu {
         System.out.print("Matrícula: ");
         String matricula = scanner.nextLine();
 
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
         double salario = lerDouble("Salário: ");
 
         Funcionario funcionario =
@@ -90,7 +93,8 @@ public class FuncionarioMenu {
                         cpf,
                         nome,
                         matricula,
-                        salario
+                        salario,
+                        senha
                 );
 
         boolean adicionou =
@@ -183,6 +187,9 @@ public class FuncionarioMenu {
         System.out.print("Nova matrícula: ");
         String matricula = scanner.nextLine();
 
+        System.out.print("Nova senha: ");
+        String senha = scanner.nextLine();
+
         double salario =
                 lerDouble("Novo salário: ");
 
@@ -192,7 +199,8 @@ public class FuncionarioMenu {
                         cpf,
                         nome,
                         matricula,
-                        salario
+                        salario,
+                        senha
                 );
 
         boolean atualizou =

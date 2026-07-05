@@ -1,47 +1,18 @@
-import java.util.Scanner;
+import Interface.LoginFrame;
+
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        SwingUtilities.invokeLater(() -> {
 
-        int opcao;
+            LoginFrame login = new LoginFrame();
+            login.setVisible(true);
 
-        do {
+        });
 
-            System.out.println("\n===== MENU PRINCIPAL =====");
-            System.out.println("4 - Menu locação");
-            System.out.println("3 - Menu Funcionário");
-            System.out.println("2 - Menu Clientes");
-            System.out.println("1 - Menu Carros");
-            System.out.println("0 - Sair");
-
-            System.out.print("Escolha: ");
-            opcao = scanner.nextInt();
-
-            switch (opcao) {
-                case 4:
-                    Interface.LocacaoMenu.exibir();
-                    break;
-                case 3:
-                    Interface.FuncionarioMenu.exibir();
-                    break;
-                case 2:
-                    Interface.ClienteMenu.exibir();
-                    break;
-                case 1:
-                    Interface.CarroMenu.exibir();
-                    break;
-
-                case 0:
-                    System.out.println("Sistema encerrado.");
-                    break;
-
-                default:
-                    System.out.println("Opção inválida.");
-            }
-
-        } while (opcao != 0);
     }
+
 }
