@@ -30,12 +30,23 @@ public class MainMenu extends JFrame {
 
         add(painel);
 
-        sair.addActionListener(e -> System.exit(0));
+        // Sair com confirmação
+        sair.addActionListener(e -> {
+            int resposta = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja realmente sair do sistema?",
+                    "Confirmar Saída",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (resposta == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
 
-        carro.addActionListener(e -> CarroMenu.exibir());
-        cliente.addActionListener(e -> ClienteMenu.exibir());
-        funcionario.addActionListener(e -> FuncionarioMenu.exibir());
-        locacao.addActionListener(e -> LocacaoMenu.exibir());
+        carro.addActionListener(e -> {
+            dispose();
+            new CarroFrame().setVisible(true);
+        });
 
     }
 
