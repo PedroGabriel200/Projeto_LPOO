@@ -13,7 +13,6 @@ public class MainMenu extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel painel = new JPanel(new GridLayout(5,1,10,10));
-
         painel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         JButton carro = new JButton("Menu Carros");
@@ -30,7 +29,32 @@ public class MainMenu extends JFrame {
 
         add(painel);
 
-        // Sair com confirmação
+        // CARROS
+        carro.addActionListener(e -> {
+            dispose();
+            new CarroFrame().setVisible(true);
+        });
+
+        // CLIENTES
+        cliente.addActionListener(e -> {
+            dispose();
+            new ClienteFrame().setVisible(true);
+        });
+
+        // FUNCIONÁRIOS
+        funcionario.addActionListener(e -> {
+            dispose();
+            new CadastroPrimeiroFuncionarioFrame().setVisible(true);
+            // ou new FuncionarioFrame().setVisible(true);
+        });
+
+        // LOCAÇÕES
+        locacao.addActionListener(e -> {
+            dispose();
+            new LocacaoFrame().setVisible(true);
+        });
+
+        // SAIR
         sair.addActionListener(e -> {
             int resposta = JOptionPane.showConfirmDialog(
                     this,
@@ -38,16 +62,12 @@ public class MainMenu extends JFrame {
                     "Confirmar Saída",
                     JOptionPane.YES_NO_OPTION
             );
+
             if (resposta == JOptionPane.YES_OPTION) {
                 System.exit(0);
             }
         });
 
-        carro.addActionListener(e -> {
-            dispose();
-            new CarroFrame().setVisible(true);
-        });
-
+        setVisible(true);
     }
-
 }
