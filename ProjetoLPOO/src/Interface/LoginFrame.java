@@ -47,11 +47,18 @@ public class LoginFrame extends JFrame {
         painelPrincipal.setBorder(new EmptyBorder(30, 30, 30, 30));
 
         // ======================
-        // ESPAÇO PARA SUA LOGO
+        // ESPAÇO
         // ======================
 
-        JLabel lblLogo = new JLabel("SUA LOGO");
-        lblLogo.setFont(new Font("Segoe UI", Font.BOLD, 36));
+        ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/logo.png"));
+
+        Image imagem = icone.getImage().getScaledInstance(
+                180,
+                180,
+                Image.SCALE_SMOOTH);
+
+        JLabel lblLogo = new JLabel(new ImageIcon(imagem));
+        lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel lblEmpresa = new JLabel("Sistema de Locadora");
@@ -135,7 +142,7 @@ public class LoginFrame extends JFrame {
 
             dispose();
 
-            new MainMenu().setVisible(true);
+            new MainMenuFrame().setVisible(true);
 
         } else {
 

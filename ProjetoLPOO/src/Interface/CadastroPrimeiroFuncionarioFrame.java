@@ -23,84 +23,111 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
     public CadastroPrimeiroFuncionarioFrame() {
 
         setTitle("Primeiro Acesso");
-        setSize(550,650);
+        setSize(700,650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
+        Color fundo = new Color(245,245,245);
+
         JPanel principal = new JPanel();
-        principal.setBackground(new Color(245,245,245));
+        principal.setBackground(fundo);
         principal.setLayout(new BoxLayout(principal, BoxLayout.Y_AXIS));
-        principal.setBorder(new EmptyBorder(30,30,30,30));
+        principal.setBorder(new EmptyBorder(20,20,20,20));
 
-        JLabel logo = new JLabel("SUA LOGO");
+        // ================= LOGO =================
+
+        ImageIcon icone = new ImageIcon(
+                getClass().getResource("/imagens/logo.png"));
+
+        Image imagem = icone.getImage().getScaledInstance(
+                180,
+                180,
+                Image.SCALE_SMOOTH);
+
+        JLabel logo = new JLabel(new ImageIcon(imagem));
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        logo.setFont(new Font("Segoe UI", Font.BOLD, 34));
 
-        JLabel titulo = new JLabel("Primeiro acesso ao sistema");
+        JLabel titulo = new JLabel("Primeiro Acesso");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titulo.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        titulo.setFont(new Font("Segoe UI",Font.BOLD,28));
 
-        JLabel subtitulo = new JLabel("Cadastre o primeiro funcionário");
+        JLabel subtitulo = new JLabel("Cadastre o administrador do sistema");
         subtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        subtitulo.setFont(new Font("Segoe UI",Font.PLAIN,16));
+        subtitulo.setForeground(Color.GRAY);
 
         principal.add(logo);
         principal.add(Box.createVerticalStrut(10));
         principal.add(titulo);
+        principal.add(Box.createVerticalStrut(5));
         principal.add(subtitulo);
-        principal.add(Box.createVerticalStrut(30));
+        principal.add(Box.createVerticalStrut(25));
+
+        // ================= CARD =================
 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(Color.WHITE);
-        card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(220,220,220)),
+                new EmptyBorder(20,20,20,20)
+        ));
 
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(8,8,8,8);
+        c.insets = new Insets(10,10,10,10);
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+
+        Font fonte = new Font("Segoe UI",Font.PLAIN,15);
+
+        txtNome = new JTextField();
+        txtCpf = new JTextField();
+        txtMatricula = new JTextField();
+        txtSalario = new JTextField();
+        txtSenha = new JPasswordField();
+
+        configurarCampo(txtNome,"Nome",fonte);
+        configurarCampo(txtCpf,"CPF",fonte);
+        configurarCampo(txtMatricula,"Matrícula",fonte);
+        configurarCampo(txtSalario,"Salário",fonte);
+        configurarCampo(txtSenha,"Senha",fonte);
+
+        // Linha 1
+
         c.gridx = 0;
         c.gridy = 0;
+        card.add(txtNome,c);
 
-        txtNome = new JTextField(20);
-        txtCpf = new JTextField(20);
-        txtMatricula = new JTextField(20);
-        txtSalario = new JTextField(20);
-        txtSenha = new JPasswordField(20);
+        c.gridx = 1;
+        card.add(txtCpf,c);
 
-        card.add(new JLabel("Nome"), c);
+        // Linha 2
 
-        c.gridy++;
-        card.add(txtNome, c);
+        c.gridx = 0;
+        c.gridy = 1;
+        card.add(txtMatricula,c);
 
-        c.gridy++;
-        card.add(new JLabel("CPF"), c);
+        c.gridx = 1;
+        card.add(txtSalario,c);
 
-        c.gridy++;
-        card.add(txtCpf, c);
+        // Linha 3
 
-        c.gridy++;
-        card.add(new JLabel("Matrícula"), c);
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 2;
+        card.add(txtSenha,c);
 
-        c.gridy++;
-        card.add(txtMatricula, c);
+        // Botão
 
-        c.gridy++;
-        card.add(new JLabel("Salário"), c);
+        c.gridy = 3;
 
-        c.gridy++;
-        card.add(txtSalario, c);
-
-        c.gridy++;
-        card.add(new JLabel("Senha"), c);
-
-        c.gridy++;
-        card.add(txtSenha, c);
-
-        c.gridy++;
-
-        btnCadastrar = new JButton("Cadastrar");
-
+        btnCadastrar = new JButton("Cadastrar Funcionário");
+        btnCadastrar.setFont(new Font("Segoe UI",Font.BOLD,16));
         btnCadastrar.setBackground(new Color(0,123,255));
         btnCadastrar.setForeground(Color.WHITE);
+        btnCadastrar.setFocusPainted(false);
+        btnCadastrar.setPreferredSize(new Dimension(300,45));
 
         card.add(btnCadastrar,c);
 
@@ -109,6 +136,15 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
         add(principal);
 
         btnCadastrar.addActionListener(e -> cadastrarFuncionario());
+    }
+
+    private void configurarCampo(JTextField campo,
+                                 String titulo,
+                                 Font fonte){
+
+        campo.setFont(fonte);
+        campo.setPreferredSize(new Dimension(250,45));
+        campo.setBorder(BorderFactory.createTitledBorder(titulo));
     }
 
     private void cadastrarFuncionario() {
@@ -120,8 +156,8 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
             String matricula = txtMatricula.getText().trim();
             String senha = new String(txtSenha.getPassword()).trim();
 
-            double salario =
-                    Double.parseDouble(txtSalario.getText().replace(",", "."));
+            double salario = Double.parseDouble(
+                    txtSalario.getText().replace(",", "."));
 
             if(nome.isEmpty() ||
                     cpf.isEmpty() ||
@@ -132,7 +168,6 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
                         this,
                         "Preencha todos os campos."
                 );
-
                 return;
             }
 
@@ -153,7 +188,6 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
                 );
 
                 dispose();
-
                 new LoginFrame().setVisible(true);
 
             }else{
@@ -162,19 +196,20 @@ public class CadastroPrimeiroFuncionarioFrame extends JFrame {
                         this,
                         "Erro ao cadastrar funcionário.",
                         "Erro",
-                        JOptionPane.ERROR_MESSAGE
-                );
-
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }catch(NumberFormatException ex){
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Salário inválido."
-            );
-
+                    "Informe um salário válido.");
         }
     }
+
+    private void configurarCampo(JTextField campo,
+                                 String titulo,
+                                 Font fonte,
+                                 boolean dummy){}
 
 }
